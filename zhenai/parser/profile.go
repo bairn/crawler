@@ -3,7 +3,6 @@ package parser
 import (
 	"crawler/engine"
 	"crawler/model"
-	"fmt"
 	"github.com/bitly/go-simplejson"
 	"log"
 	"regexp"
@@ -35,8 +34,6 @@ func parseJson(json []byte) model.Profile {
 	if err != nil {
 		log.Fatalln(err)
 	}
-
-	fmt.Println(len(infos))
 
 	var profile model.Profile
 
