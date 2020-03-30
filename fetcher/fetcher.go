@@ -16,9 +16,9 @@ import (
 var rateLimiter = time.Tick(100 * time.Microsecond)
 
 func Fetch(url string) ([]byte, error) {
-	<- rateLimiter
+	<-rateLimiter
 	request, _ := http.NewRequest(http.MethodGet, url, nil)
-	request.Header.Add("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36")
+	request.Header.Add("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36")
 	resp, err := http.DefaultClient.Do(request)
 	if err != nil {
 		return nil, err
@@ -33,7 +33,7 @@ func Fetch(url string) ([]byte, error) {
 
 	if resp.StatusCode != http.StatusOK {
 		return nil,
-		       fmt.Errorf("wrong status code:%d", resp.StatusCode)
+			fmt.Errorf("wrong status code:%d", resp.StatusCode)
 	}
 	bodyReader := bufio.NewReader(resp.Body)
 	e := determineEncoding(bodyReader)
@@ -44,9 +44,8 @@ func Fetch(url string) ([]byte, error) {
 	return all, err
 }
 
-
 func determineEncoding(r *bufio.Reader) encoding.Encoding {
-	bytes , err := r.Peek(1024)
+	bytes, err := r.Peek(1024)
 	if err != nil {
 		log.Printf("Fetcher error:%v", err)
 		return unicode.UTF8

@@ -4,7 +4,7 @@ import "crawler/engine"
 
 type QueuedScheduler struct {
 	requestChan chan engine.Request
-	workerChan chan chan engine.Request
+	workerChan  chan chan engine.Request
 }
 
 func (s *QueuedScheduler) WorkerChan() chan engine.Request {
@@ -15,7 +15,7 @@ func (s *QueuedScheduler) Submit(r engine.Request) {
 	s.requestChan <- r
 }
 
-func (s *QueuedScheduler) WorkerReady ( w chan engine.Request) {
+func (s *QueuedScheduler) WorkerReady(w chan engine.Request) {
 	s.workerChan <- w
 }
 
@@ -30,7 +30,7 @@ func (s *QueuedScheduler) Run() {
 			var activeRequest engine.Request
 			var activeWorder chan engine.Request
 			if len(requestQ) > 0 &&
-				len(workerQ) >0 {
+				len(workerQ) > 0 {
 				activeWorder = workerQ[0]
 				activeRequest = requestQ[0]
 			}
@@ -47,5 +47,3 @@ func (s *QueuedScheduler) Run() {
 		}
 	}()
 }
-
-

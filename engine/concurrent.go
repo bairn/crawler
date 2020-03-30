@@ -1,31 +1,28 @@
 package engine
 
 type ConcurrentEngine struct {
-	Scheduler Scheduler
+	Scheduler   Scheduler
 	WorkerCount int
-	ItemChan chan interface{}
+	ItemChan    chan Item
 }
-
 
 type Scheduler interface {
 	ReadyNotifier
 	Submit(Request)
 	Run()
-	WorkerChan() (chan Request)
+	WorkerChan() chan Request
 }
-
 
 type ReadyNotifier interface {
-	WorkerReady (chan Request)
+	WorkerReady(chan Request)
 }
 
-
-func (e ConcurrentEngine) Run (seeds ...Request) {
+func (e ConcurrentEngine) Run(seeds ...Request) {
 	out := make(chan ParseResult)
 	e.Scheduler.Run()
 
-	for i:=0; i< e.WorkerCount; i++ {
-		createWorker(e.Scheduler.WorkerChan() , out, e.Scheduler)
+	for i := 0; i < e.WorkerCount; i++ {
+		createWorker(e.Scheduler.WorkerChan(), out, e.Scheduler)
 	}
 
 	for _, r := range seeds {
@@ -33,9 +30,9 @@ func (e ConcurrentEngine) Run (seeds ...Request) {
 	}
 
 	for {
-		result := <- out
+		result := <-out
 		for _, item := range result.Items {
-			go func() {e.ItemChan <- item}()
+			go func() { e.ItemChan <- item }()
 		}
 
 		for _, request := range result.Requests {
@@ -49,12 +46,12 @@ func (e ConcurrentEngine) Run (seeds ...Request) {
 
 }
 
-func createWorker (in chan Request, out chan ParseResult, ready ReadyNotifier) {
+func createWorker(in chan Request, out chan ParseResult, ready ReadyNotifier) {
 	go func() {
 		for {
 			ready.WorkerReady(in)
 
-			request := <- in
+			request := <-in
 			result, err := worker(request)
 			if err != nil {
 				continue
@@ -65,10 +62,14 @@ func createWorker (in chan Request, out chan ParseResult, ready ReadyNotifier) {
 	}()
 }
 
+
+var visitedUrls = make(map[string]bool)
+
 func isDuplicate(url string) bool {
+	if visitedUrls[url] {
+		return true
+	}
+
+	visitedUrls[url] = true
 	return false
 }
-
-
-
-
