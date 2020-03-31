@@ -71,5 +71,3 @@ func TestItemSaver(t *testing.T) {
 		t.Errorf("got %v;expected %v", actual, expected)
 	}
 }
-
-

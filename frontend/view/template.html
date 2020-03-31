@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="demo">
+      <div align="middle">
+          <form action="" method="get">
+          <input type="text" maxlength="100" value="{{.Query}}" name="q">
+          <button type="submit">搜索</button>
+          </form>
+      </div>
+      <h2>共为你找到相关结果约为{{.Hits}}个。显示从{{.Start}}起共{{len .Items}}个。</h2>
+  </div>
+
+   <div>
+       <table>
+           <tbody>
+           {{range .Items}}
+           <tr>
+               <td><a href="{{.Url}}">{{.Payload.Name}}</a></td>
+               {{with .Payload}}
+                   <td>{{.Gender}}</td>
+                   <td>{{.Age}}</td>
+                   <td>{{.Height}}</td>
+                   <td>{{.Weight}}</td>
+                   <td>{{.Income}}</td>
+                   <td>{{.Education}}</td>
+                   <td>{{.Occupation}}</td>
+                   <td>{{.Hukou}}</td>
+                   <td>{{.Xingzuo}}</td>
+                   <td>{{.House}}</td>
+                   <td>{{.Car}}</td>
+               {{end}}
+           </tr>
+           {{else}}
+               <div>没有找到相关用户</div>
+           {{end}}
+           </tbody>
+       </table>
+       <div align="middle">
+           {{if ge .PrevFrom 0}}
+           <a href="search?q={{.Query}}&from={{.PrevFrom}}">上一页</a>
+           {{end}}
+           <a href="search?q={{.Query}}&from={{.NextFrom}}">下一页</a>
+       </div>
+   </div>
+
+  <script src="js/index.js"></script>
+
+</body>
+</html>

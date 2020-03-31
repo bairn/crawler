@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-
 	itemChan , err := persist.ItemSaver("dating_profile")
 	if err != nil {
 		panic(err)
@@ -24,5 +23,4 @@ func main() {
 		Url:        "http://www.zhenai.com/zhenghun/beijing",
 		ParserFunc: parser.ParseCity,
 	})
-
 }
