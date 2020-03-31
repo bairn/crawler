@@ -6,9 +6,9 @@ import (
 )
 
 func main() {
-	http.Handle("/", http.FileServer(http.Dir("frontend/view/")) )
+	http.Handle("/", http.FileServer(http.Dir("crawler/frontend/view/")) )
 
-	http.Handle("/search", controller.CreateSearchResultHandle("frontend/view/template.html"))
+	http.Handle("/search", controller.CreateSearchResultHandle("crawler/frontend/view/template.html"))
 	err := http.ListenAndServe(":8888", nil)
 	if err != nil {
 		panic(err)
