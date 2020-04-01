@@ -27,7 +27,10 @@ func ItemSaver(index string) (chan engine.Item, error)  {
 				continue
 			}
 
-			profile := item.Payload.(model.Profile)
+			profile, ok := item.Payload.(model.Profile)
+			if !ok {
+				continue
+			}
 			if profile.Age == "" {
 				continue
 			}

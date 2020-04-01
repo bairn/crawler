@@ -11,7 +11,7 @@ import (
 
 var re = regexp.MustCompile(`<script>window.__INITIAL_STATE__=(.+);\(function`)
 
-func ParseProfile(contents []byte, name string) engine.ParseResult {
+func parseProfile(contents []byte, name string) engine.ParseResult {
 	match := re.FindSubmatch(contents)
 	result := engine.ParseResult{}
 	if len(match) >= 2 {
