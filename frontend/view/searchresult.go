@@ -1,7 +1,7 @@
 package view
 
 import (
-	"crawler/frontend/model"
+	"github.com/bairn/crawler/frontend/model"
 	"html/template"
 	"io"
 )

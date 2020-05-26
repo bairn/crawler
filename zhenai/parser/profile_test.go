@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"crawler/fetcher"
+	"github.com/bairn/crawler/fetcher"
 	"testing"
 )
 

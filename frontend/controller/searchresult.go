@@ -2,9 +2,9 @@ package controller
 
 import (
 	"context"
-	"crawler/engine"
-	"crawler/frontend/model"
-	"crawler/frontend/view"
+	"github.com/bairn/crawler/engine"
+	"github.com/bairn/crawler/frontend/model"
+	"github.com/bairn/crawler/frontend/view"
 	"gopkg.in/olivere/elastic.v5"
 	"net/http"
 	"reflect"

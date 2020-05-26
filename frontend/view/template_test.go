@@ -1,9 +1,9 @@
 package view
 
 import (
-	"crawler/engine"
-	"crawler/frontend/model"
-	common "crawler/model"
+	"github.com/bairn/crawler/engine"
+	"github.com/bairn/crawler/frontend/model"
+	common "github.com/bairn/crawler/model"
 	"os"
 	"testing"
 )

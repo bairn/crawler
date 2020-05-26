@@ -1,8 +1,8 @@
 package parser
 
 import (
-	"crawler/engine"
-	"crawler/model"
+	"github.com/bairn/crawler/engine"
+	"github.com/bairn/crawler/model"
 	"github.com/bitly/go-simplejson"
 	"log"
 	"regexp"

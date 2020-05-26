@@ -1,7 +1,7 @@
 package main
 
 import (
-	"crawler/frontend/controller"
+	"github.com/bairn/crawler/frontend/controller"
 	"net/http"
 )
 

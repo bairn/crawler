@@ -1,4 +1,4 @@
-module crawler
+module github.com/bairn/crawler
 
 go 1.14
 
